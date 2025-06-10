@@ -4,13 +4,19 @@
 
 1. **Java 21**
    - Necesitas tener instalado openjdk21.
-   - Verifica tu versión con:
-     ```zsh
-     java -version
-     ```
+
    - Si no tienes Java 21, puedes instalarlo con Homebrew:
      ```zsh
      brew install openjdk@21
+     ```
+    - Ejecuta:
+    ```zsh
+    export JAVA_HOME="/opt/homebrew/opt/openjdk@21"
+    export PATH="$JAVA_HOME/bin:$PATH"
+    ```
+    - Verifica tu versión con: debe ser la 21
+     ```zsh
+     java -version
      ```
 
 2. **Maven**
@@ -42,12 +48,6 @@
    ```zsh
    ./mvnw spring-boot:run
    ```
-   o, para empaquetar y correr el JAR:
-   ```zsh
-   ./mvnw clean package -DskipTests
-   java -jar target/relatosdepapel-buscador-ms-*.jar
-   ```
-
 3. Accede a la API en:  
    [http://localhost:8080/books](http://localhost:8080/books)
 
@@ -129,4 +129,20 @@ curl -G "http://localhost:8080/books/search" \
 
 Puedes combinar cualquier parámetro: `author`, `title`, `type`, `editorial`, `idioma`, `categoria`, `valoracion`, `visible`.
 
----
+
+## Ejecución alternativa solo con Podman (sin Maven ni Java local)
+
+Si no quieres instalar Maven ni compilar en local, puedes construir y ejecutar el microservicio directamente con Podman. El Dockerfile está preparado para compilar el proyecto dentro del contenedor usando una build multietapa.
+
+### Requisito:
+- Debes tener instalado **Podman** en tu sistema.
+
+### Pasos:
+
+1. Abre una terminal en la raíz del proyecto.
+2. Ejecuta:
+   ```zsh
+   ./build-and-run.sh
+   ```
+
+Este script construirá la imagen y ejecutará el microservicio dentro de un contenedor Podman, sin requerir Maven ni Java instalados en tu máquina local.
