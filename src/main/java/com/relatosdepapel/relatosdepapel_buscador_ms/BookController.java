@@ -74,8 +74,8 @@ public class BookController {
             @RequestParam(required = false) String idioma,
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) Integer valoracion,
-            @RequestParam(required = false) Boolean visible
+            @RequestParam(required = false) Boolean active
     ) {
-        return repository.findByFilters(author, title, type, editorial, idioma, categoria, valoracion, visible);
+        return repository.findByFilters(author, title, type, editorial, idioma, categoria, valoracion, active);
     }
 }

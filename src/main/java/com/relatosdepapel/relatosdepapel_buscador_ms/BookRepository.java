@@ -14,7 +14,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "(:idioma IS NULL OR b.idioma = :idioma) AND " +
             "(:categoria IS NULL OR b.categoria = :categoria) AND " +
             "(:valoracion IS NULL OR b.valoracion = :valoracion) AND " +
-            "(:visible IS NULL OR b.visible = :visible)")
+            "(:active IS NULL OR b.active = :active)")
     List<Book> findByFilters(
             @Param("author") String author,
             @Param("title") String title,
@@ -23,6 +23,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             @Param("idioma") String idioma,
             @Param("categoria") String categoria,
             @Param("valoracion") Integer valoracion,
-            @Param("visible") Boolean visible
+            @Param("active") Boolean active
     );
 }
