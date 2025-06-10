@@ -3,14 +3,14 @@
 ## Requisitos para ejecutar el microservicio
 
 1. **Java 21**
-   - El archivo `pom.xml` especifica `<java.version>21</java.version>`, por lo que necesitas tener instalado Java 21.
+   - Necesitas tener instalado openjdk21.
    - Verifica tu versión con:
      ```zsh
      java -version
      ```
    - Si no tienes Java 21, puedes instalarlo con Homebrew:
      ```zsh
-     brew install temurin21
+     brew install openjdk@21
      ```
 
 2. **Maven**
@@ -130,5 +130,3 @@ curl -G "http://localhost:8080/books/search" \
 Puedes combinar cualquier parámetro: `author`, `title`, `type`, `editorial`, `idioma`, `categoria`, `valoracion`, `visible`.
 
 ---
-
-¿Necesitas ayuda para crear un Dockerfile o para ejecutar el microservicio en un contenedor Docker?
