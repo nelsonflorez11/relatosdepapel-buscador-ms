@@ -1,5 +1,5 @@
 CREATE TABLE book (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ISBN BIGINT AUTO_INCREMENT PRIMARY KEY,
     image VARCHAR(1000),
     author VARCHAR(255),
     title VARCHAR(255),
@@ -10,5 +10,8 @@ CREATE TABLE book (
     idioma VARCHAR(100),
     paginas INT,
     publicacion INT,
-    formato VARCHAR(100)
+    formato VARCHAR(100),
+    categoria VARCHAR(100),
+    valoracion INT CHECK (valoracion BETWEEN 1 AND 5),
+    visible BOOLEAN DEFAULT TRUE
 );
