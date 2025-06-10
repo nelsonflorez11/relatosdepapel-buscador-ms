@@ -78,4 +78,9 @@ public class BookController {
     ) {
         return repository.findByFilters(author, title, type, editorial, idioma, categoria, valoracion, active);
     }
+
+    @GetMapping("/")
+    public String home() {
+        return "Bienvenido a la API de relatosdepapel-buscador-ms. Visita /books para ver los libros.";
+    }
 }
