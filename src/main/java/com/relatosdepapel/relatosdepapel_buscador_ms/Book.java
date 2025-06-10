@@ -23,7 +23,8 @@ public class Book {
     private String formato;
     private String categoria;
     private Integer valoracion;
-    private Boolean visible;
+    private Integer stock;
+    private Boolean active;
 
     public Book() {
     }
@@ -141,11 +142,19 @@ public class Book {
         this.valoracion = valoracion;
     }
 
-    public Boolean getVisible() {
-        return visible;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

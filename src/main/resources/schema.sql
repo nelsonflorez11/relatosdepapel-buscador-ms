@@ -13,5 +13,6 @@ CREATE TABLE book (
     formato VARCHAR(100),
     categoria VARCHAR(100),
     valoracion INT CHECK (valoracion BETWEEN 1 AND 5),
-    visible BOOLEAN DEFAULT TRUE
+    active BOOLEAN DEFAULT TRUE,
+    stock INT
 );
