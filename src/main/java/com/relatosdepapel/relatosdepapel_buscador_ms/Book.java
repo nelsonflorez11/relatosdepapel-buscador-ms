@@ -1,1 +1,0 @@
-// Archivo eliminado para evitar duplicidad. Usa la versión en entity/.
