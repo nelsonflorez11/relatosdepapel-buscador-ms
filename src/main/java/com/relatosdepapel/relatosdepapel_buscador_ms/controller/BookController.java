@@ -1,11 +1,9 @@
 package com.relatosdepapel.relatosdepapel_buscador_ms.controller;
 
 import com.relatosdepapel.relatosdepapel_buscador_ms.entity.Book;
-import com.relatosdepapel.relatosdepapel_buscador_ms.repository.BookRepository;
-import org.springframework.web.bind.annotation.*;
+import com.relatosdepapel.relatosdepapel_buscador_ms.service.BookService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ReflectionUtils;
-import java.lang.reflect.Field;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,49 +11,33 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/books")
 public class BookController {
-    private final BookRepository repository;
-    public BookController(BookRepository repository) {
-        this.repository = repository;
+    private final BookService service;
+    public BookController(BookService service) {
+        this.service = service;
     }
     @GetMapping
     public List<Book> getAllBooks() {
-        return repository.findAll();
+        return service.getAllBooks();
     }
     @PostMapping
     public Book createBook(@RequestBody Book book) {
-        return repository.save(book);
+        return service.createBook(book);
     }
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
-        return repository.findById(id)
-                .map(existing -> {
-                    book.setISBN(id);
-                    return ResponseEntity.ok(repository.save(book));
-                })
-                .orElse(ResponseEntity.notFound().build());
+        Optional<Book> updated = service.updateBook(id, book);
+        return updated.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     @PatchMapping("/{id}")
     public ResponseEntity<Book> partialUpdateBook(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
-        Optional<Book> optionalBook = repository.findById(id);
-        if (optionalBook.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        Book book = optionalBook.get();
-        updates.forEach((key, value) -> {
-            Field field = ReflectionUtils.findField(Book.class, key);
-            if (field != null) {
-                field.setAccessible(true);
-                ReflectionUtils.setField(field, book, value);
-            }
-        });
-        return ResponseEntity.ok(repository.save(book));
+        Optional<Book> updated = service.partialUpdateBook(id, updates);
+        return updated.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        if (!repository.existsById(id)) {
+        if (!service.deleteBook(id)) {
             return ResponseEntity.notFound().build();
         }
-        repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/search")
@@ -69,6 +51,6 @@ public class BookController {
             @RequestParam(required = false) Integer valoracion,
             @RequestParam(required = false) Boolean active
     ) {
-        return repository.findByFilters(author, title, type, editorial, idioma, categoria, valoracion, active);
+        return service.searchBooks(author, title, type, editorial, idioma, categoria, valoracion, active);
     }
 }
