@@ -20,6 +20,15 @@ public class BookService {
         return repository.findAll();
     }
 
+    public Book getById(Long id) {
+    	Book book= null;
+    	 Optional<Book> optionalBook = repository.findById(id);
+         if (!optionalBook.isEmpty()) {
+             book= optionalBook.get();
+         }
+         return book;
+    }
+    
     public Book createBook(Book book) {
         return repository.save(book);
     }
