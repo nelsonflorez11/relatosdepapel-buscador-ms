@@ -40,6 +40,13 @@ public class BookController {
         }
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable Long id) {
+        Book value= service.getById(id);
+        return value;   
+    }
+    
     @GetMapping("/search")
     public List<Book> searchBooks(
             @RequestParam(required = false) String author,
@@ -50,7 +57,12 @@ public class BookController {
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) Integer valoracion,
             @RequestParam(required = false) Boolean active
-    ) {
+    )
+    
+   
+
+    
+    {
         return service.searchBooks(author, title, type, editorial, idioma, categoria, valoracion, active);
     }
 }
