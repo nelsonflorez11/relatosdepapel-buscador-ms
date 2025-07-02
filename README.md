@@ -148,9 +148,15 @@ Si no quieres instalar Maven ni compilar en local, puedes construir y ejecutar e
 Este script construirá la imagen y ejecutará el microservicio dentro de un contenedor Podman, sin requerir Maven ni Java instalados en tu máquina local.
 
 ## Docker
-Primero debemos haber creado una red Docker con:
-- `docker network create relatos-net`
 ### Construir la imagen
 - `docker build -t relatosdepapel-buscador-ms .`
+### Obtener IP de Eureka
+- Para obtener la IP de Eureka debemos ejecutar el siguiente comando, donde `<<container-id>>` lo podemos obtener ejecutando `docker ps`.
+  ```
+  docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <<container-id>>
+  ```
 ### Ejecutar el microservicio usando Docker
-- `docker run --detach --network relatos-net --publish 8080:8080 relatosdepapel-buscador-ms`
+- Para ejecutar el microservicio ejecutamos el siguiente comando, donde `<<IP_EUREKA>>` es la IP obtenida anteriormente.
+  ```
+  docker run -p 8080:8080 -e EUREKA_URL=http://<<IP_EUREKA>>:8761/eureka relatosdepapel-buscador-ms
+  ```
