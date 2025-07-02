@@ -148,7 +148,9 @@ Si no quieres instalar Maven ni compilar en local, puedes construir y ejecutar e
 Este script construirá la imagen y ejecutará el microservicio dentro de un contenedor Podman, sin requerir Maven ni Java instalados en tu máquina local.
 
 ## Docker
+Primero debemos haber creado una red Docker con:
+- `docker network create relatos-net`
 ### Construir la imagen
 - `docker build -t relatosdepapel-buscador-ms .`
 ### Ejecutar el microservicio usando Docker
-- `docker run -d -p 8080:8080 relatosdepapel-buscador-ms`
+- `docker run --detach --network relatos-net --publish 8080:8080 relatosdepapel-buscador-ms`
