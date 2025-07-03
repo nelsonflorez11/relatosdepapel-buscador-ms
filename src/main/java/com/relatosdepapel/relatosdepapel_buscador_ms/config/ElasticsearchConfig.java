@@ -31,8 +31,9 @@ public class ElasticsearchConfig {
   public ElasticsearchOperations elasticsearchTemplate() {
 
     final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-    credentialsProvider.setCredentials(AuthScope.ANY,
-        new UsernamePasswordCredentials(username, password));
+    credentialsProvider.setCredentials(AuthScope.ANY
+            ,new UsernamePasswordCredentials(username, password)
+    );
 
     return new ElasticsearchRestTemplate(
         new RestHighLevelClient(RestClient.builder(new HttpHost(clusterEndpoint, 443, "https"))

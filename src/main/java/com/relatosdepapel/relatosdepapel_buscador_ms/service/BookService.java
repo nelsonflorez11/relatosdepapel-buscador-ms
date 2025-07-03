@@ -1,7 +1,7 @@
 package com.relatosdepapel.relatosdepapel_buscador_ms.service;
 
-import com.relatosdepapel.relatosdepapel_buscador_ms.entity.Book;
-import com.relatosdepapel.relatosdepapel_buscador_ms.repository.BookRepository;
+import com.relatosdepapel.relatosdepapel_buscador_ms.entity.jpa.BookJPA;
+import com.relatosdepapel.relatosdepapel_buscador_ms.repository.jpa.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,24 +16,24 @@ public class BookService {
         this.repository = repository;
     }
 
-    public List<Book> getAllBooks() {
+    public List<BookJPA> getAllBooks() {
         return repository.findAll();
     }
 
-    public Book getById(Long id) {
-    	Book book= null;
-    	 Optional<Book> optionalBook = repository.findById(id);
+    public BookJPA getById(Long id) {
+        BookJPA book= null;
+    	 Optional<BookJPA> optionalBook = repository.findById(id);
          if (!optionalBook.isEmpty()) {
              book= optionalBook.get();
          }
          return book;
     }
-    
-    public Book createBook(Book book) {
+
+    public BookJPA createBook(BookJPA book) {
         return repository.save(book);
     }
 
-    public Optional<Book> updateBook(Long id, Book book) {
+    public Optional<BookJPA> updateBook(Long id, BookJPA book) {
         return repository.findById(id)
                 .map(existing -> {
                     book.setISBN(id);
@@ -41,15 +41,15 @@ public class BookService {
                 });
     }
 
-    public Optional<Book> partialUpdateBook(Long id, Map<String, Object> updates) {
-        Optional<Book> optionalBook = repository.findById(id);
+    public Optional<BookJPA> partialUpdateBook(Long id, Map<String, Object> updates) {
+        Optional<BookJPA> optionalBook = repository.findById(id);
         if (optionalBook.isEmpty()) {
             return Optional.empty();
         }
-        Book book = optionalBook.get();
+        BookJPA book = optionalBook.get();
         updates.forEach((key, value) -> {
             try {
-                var field = Book.class.getDeclaredField(key);
+                var field = BookJPA.class.getDeclaredField(key);
                 field.setAccessible(true);
                 field.set(book, value);
             } catch (Exception ignored) {}

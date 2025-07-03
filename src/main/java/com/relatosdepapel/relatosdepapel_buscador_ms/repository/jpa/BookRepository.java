@@ -1,17 +1,9 @@
-package com.relatosdepapel.relatosdepapel_buscador_ms.repository;
+package com.relatosdepapel.relatosdepapel_buscador_ms.repository.jpa;
 
-import com.relatosdepapel.relatosdepapel_buscador_ms.entity.Book;
+import com.relatosdepapel.relatosdepapel_buscador_ms.entity.jpa.BookJPA;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<BookJPA, Long> {
 //    @Query("SELECT b FROM Book b WHERE " +
 //            "(:author IS NULL OR b.author = :author) AND " +
 //            "(:title IS NULL OR b.title = :title) AND " +

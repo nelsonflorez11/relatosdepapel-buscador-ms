@@ -101,7 +101,7 @@ public class DataAccessRepository {
             ParsedStringTerms categoriaAgg = (ParsedStringTerms) aggs.get("categoria Aggregation");
 
             //Componemos una URI basada en serverFullAddress y query params para cada argumento, siempre que no viniesen vacios
-            String queryParams = getQueryParams(author, description, titulo);
+            String queryParams = getQueryParams(author, description, titulo,categoria);
             categoriaAgg.getBuckets()
                     .forEach(
                             bucket -> responseAggs.add(
@@ -122,7 +122,7 @@ public class DataAccessRepository {
      * @param categoria    - categoria del libro
      * @return
      */
-    private String getQueryParams(String author, String description, String titulo) {
+    private String getQueryParams(String author, String description, String titulo, String  categoria) {
         String queryParams = (StringUtils.isEmpty(author) ? "" : "&author=" + author)
                 + (StringUtils.isEmpty(description) ? "" : "&description=" + description)
                 + (StringUtils.isEmpty(titulo) ? "" : "&titulo=" + titulo);

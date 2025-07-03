@@ -33,14 +33,14 @@ public class BookController {
     @GetMapping
     public ResponseEntity<BookQueryResponse> getBooks(
             @RequestHeader Map<String, String> headers,
-            @RequestParam(required = false) String autor,
+            @RequestParam(required = false) String author,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String titulo,
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false, defaultValue = "false") Boolean aggregate) {
 
         //log.info("headers: {}", headers);
-        BookQueryResponse books = service.getBooks(autor, description, titulo, categoria, aggregate);
+        BookQueryResponse books = service.getBooks(author, description, titulo, categoria, aggregate);
         return ResponseEntity.ok(books);
     }
 //    public List<Book> getAllBooks() {
