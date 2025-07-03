@@ -65,7 +65,7 @@ public class BookService {
         return true;
     }
 
-    public List<Book> searchBooks(String author, String title, String type, String editorial, String idioma, String categoria, Integer valoracion, Boolean active) {
-        return repository.findByFilters(author, title, type, editorial, idioma, categoria, valoracion, active);
-    }
+//    public List<Book> searchBooks(String author, String title, String type, String editorial, String idioma, String categoria, Integer valoracion, Boolean active) {
+//        return repository.findByFilters(author, title, type, editorial, idioma, categoria, valoracion, active);
+//    }
 }
