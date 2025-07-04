@@ -50,10 +50,10 @@ public class ElasticsearchConfig {
   public RestHighLevelClient restHighLevelClient() {
       final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
       credentialsProvider.setCredentials(AuthScope.ANY,
-          new UsernamePasswordCredentials("pcwgxsr9vx", "9lwdi10hrr"));
+          new UsernamePasswordCredentials(username, password));
 
       RestClientBuilder builder = RestClient.builder(
-          new HttpHost("relatosdepapel-8431150831.us-east-1.bonsaisearch.net", 443, "https"))
+          new HttpHost(clusterEndpoint, 443, "https"))
           .setHttpClientConfigCallback(httpClientBuilder ->
               httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
 
