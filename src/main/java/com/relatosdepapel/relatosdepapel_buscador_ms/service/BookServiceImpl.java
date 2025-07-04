@@ -16,9 +16,9 @@ public class BookServiceImpl implements BookServiceElastic {
 	private final DataAccessRepository repository;
 
 	@Override
-	public BookQueryResponse getBooks(String author, String description, String titulo, String categoria, Boolean aggregate) {
+	public BookQueryResponse getBooks(String author, String description, String titulo, String categoria, String formato, Float minPrice, Float maxPrice, Boolean aggregate) {
 		//Ahora por defecto solo devolvera libros visibles
-		return repository.findBooks(author, description, titulo, categoria, aggregate);
+		return repository.findBooks(author, description, titulo, categoria, formato, minPrice,maxPrice, aggregate);
 	}
 
 	@Override

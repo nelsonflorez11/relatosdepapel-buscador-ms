@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder.Type;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
@@ -50,7 +51,7 @@ public class DataAccessRepository {
 	}
 
     @SneakyThrows
-    public BookQueryResponse findBooks(String author, String description, String titulo, String categoria, Boolean aggregate) {
+    public BookQueryResponse findBooks(String author, String description, String titulo, String categoria, String tipo, Float priceMin, Float priceMax, Boolean aggregate) {
 
         BoolQueryBuilder querySpec = QueryBuilders.boolQuery();
 
@@ -59,7 +60,7 @@ public class DataAccessRepository {
         }
 
         if (!StringUtils.isEmpty(titulo)) {
-            querySpec.must(QueryBuilders.matchQuery("titulo", titulo));
+            querySpec.must(QueryBuilders.matchQuery("title", titulo));
         }
 
         if (!StringUtils.isEmpty(description)) {
@@ -68,8 +69,21 @@ public class DataAccessRepository {
         if (!StringUtils.isEmpty(categoria)) {
             querySpec.must(QueryBuilders.termQuery("categoria", categoria));
         }
+        if (!StringUtils.isEmpty(tipo)) {
+            String[] valoresSeparados = tipo.split(",");
+            List<String> tiposList = Arrays.asList(valoresSeparados);
+            querySpec.must(QueryBuilders.termsQuery("type", tiposList));
+        }
 
-        //Si no he recibido ningun parametro, busco todos los elementos.
+        if (priceMin != null || priceMax != null) {
+            RangeQueryBuilder priceRange = QueryBuilders.rangeQuery("price");
+            if (priceMin != null) priceRange.gte(priceMin);
+            if (priceMax != null) priceRange.lte(priceMax);
+            querySpec.must(priceRange);
+        }
+
+
+        //Si no se recibe ningun parametro, busco todos los elementos.
         if (!querySpec.hasClauses()) {
             querySpec.must(QueryBuilders.matchAllQuery());
         }
@@ -125,7 +139,7 @@ public class DataAccessRepository {
     private String getQueryParams(String author, String description, String titulo, String  categoria) {
         String queryParams = (StringUtils.isEmpty(author) ? "" : "&author=" + author)
                 + (StringUtils.isEmpty(description) ? "" : "&description=" + description)
-                + (StringUtils.isEmpty(titulo) ? "" : "&titulo=" + titulo);
+                + (StringUtils.isEmpty(titulo) ? "" : "&title=" + titulo);
         // Eliminamos el ultimo & si existe
         return queryParams.endsWith("&") ? queryParams.substring(0, queryParams.length() - 1) : queryParams;
     }

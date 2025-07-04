@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface Book_ElasticSearch_Repository extends ElasticsearchRepository<Book, Long> {
 
-    List<Book> findByAuthor(String author);
+    //List<Book> findByAuthor(String author);
 
     Optional<Book> findById(Long id);
 
@@ -16,5 +16,5 @@ public interface Book_ElasticSearch_Repository extends ElasticsearchRepository<B
 
     void delete(Book libro);
 
-    List<Book> findAll();
+    //List<Book> findAll();
 }

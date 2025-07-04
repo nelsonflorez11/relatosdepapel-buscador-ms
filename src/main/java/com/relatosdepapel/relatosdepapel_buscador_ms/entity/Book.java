@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Document(indexName = "books", createIndex = true)
+@Document(indexName = "books02", createIndex = true)
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,7 +20,6 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Book {
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private String ISBN;
     @Field(type = FieldType.Keyword, name = "image")

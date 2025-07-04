@@ -37,10 +37,13 @@ public class BookController {
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String titulo,
             @RequestParam(required = false) String categoria,
+            @RequestParam(required = false) String formato,
+            @RequestParam(required = false) Float minprice,
+            @RequestParam(required = false) Float maxprice,
             @RequestParam(required = false, defaultValue = "false") Boolean aggregate) {
 
         //log.info("headers: {}", headers);
-        BookQueryResponse books = service.getBooks(author, description, titulo, categoria, aggregate);
+        BookQueryResponse books = service.getBooks(author, description, titulo, categoria, formato, minprice,maxprice, aggregate);
         return ResponseEntity.ok(books);
     }
 //    public List<Book> getAllBooks() {
