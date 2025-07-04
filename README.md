@@ -81,53 +81,27 @@ curl -X POST http://localhost:8080/books \
     "visible": true
   }'
 ```
-
-### 3. Modificar completamente un libro
-**PUT** `/books/{id}`
-```zsh
-curl -X PUT http://localhost:8080/books/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "image": "https://ejemplo.com/portada2.jpg",
-    "author": "Autor Modificado",
-    "title": "Libro Modificado",
-    "description": "Nueva descripción.",
-    "type": "fisico",
-    "price": 2000.00,
-    "editorial": "Editorial Y",
-    "idioma": "Inglés",
-    "paginas": 300,
-    "publicacion": 2025,
-    "formato": "Tapa dura",
-    "categoria": "Ensayo",
-    "valoracion": 5,
-    "visible": false
-  }'
-```
-
-### 4. Modificar parcialmente un libro
-**PATCH** `/books/{id}`
-```zsh
-curl -X PATCH http://localhost:8080/books/1 \
-  -H "Content-Type: application/json" \
-  -d '{"price": 1800.00, "visible": true}'
-```
-
-### 5. Eliminar un libro
+ ### 3. Eliminar un libro
 **DELETE** `/books/{id}`
 ```zsh
 curl -X DELETE http://localhost:8080/books/1
 ```
 
-### 6. Buscar libros por atributos (individual o combinados)
-**GET** `/books/search?author=Gabriel%20Garc%C3%ADa%20M%C3%A1rquez&categoria=Novela`
+### 4. Buscar libros por atributos (individual o combinados)
+**GET** `/books?author=Gabriel%20Garc%C3%ADa%20M%C3%A1rquez&categoria=Novela`
 ```zsh
 curl -G "http://localhost:8080/books/search" \
   --data-urlencode "author=Gabriel García Márquez" \
   --data-urlencode "categoria=Novela"
 ```
 
-Puedes combinar cualquier parámetro: `author`, `title`, `type`, `editorial`, `idioma`, `categoria`, `valoracion`, `visible`.
+### 4. Buscar libros id
+**GET** `/books/Bwpt05cBTo8i77nQmJq4`
+```zsh
+curl -G "http://localhost:8080/books/Bwpt05cBTo8i77nQmJq4"  
+```
+
+Puedes combinar cualquier parámetro: `author`, `title`, `type`, `categoria`, `active`.
 
 
 ## Ejecución alternativa solo con Podman (sin Maven ni Java local)

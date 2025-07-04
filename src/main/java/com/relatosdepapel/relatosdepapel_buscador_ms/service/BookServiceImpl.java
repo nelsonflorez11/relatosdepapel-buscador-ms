@@ -41,12 +41,28 @@ public class BookServiceImpl implements BookServiceElastic {
 	@Override
 	public Book createBook(CreateBookRequest request) {
 
-		if (request != null && StringUtils.hasLength(request.getAuthor().trim())
-				&& StringUtils.hasLength(request.getDescription().trim())
-				&& StringUtils.hasLength(request.getTitle().trim()) && request.getActive() != null) {
+		if (request != null &&
+				StringUtils.hasText(request.getAuthor()) &&
+				StringUtils.hasText(request.getDescription()) &&
+				StringUtils.hasText(request.getTitle()) &&
+				request.getActive() != null) {
 
-			Book product = Book.builder().author(request.getAuthor()).description(request.getDescription())
-					.type(request.getType()).active(request.getActive()).build();
+			Book product = Book.builder()
+					.author(request.getAuthor().trim())
+					.title(request.getTitle().trim())
+					.description(request.getDescription().trim())
+					.type(request.getType())
+					.price(request.getPrice())
+					.editorial(request.getEditorial())
+					.idioma(request.getIdioma())
+					.paginas(request.getPaginas())
+					.publicacion(request.getPublicacion())
+					.formato(request.getFormato())
+					.categoria(request.getCategoria())
+					.valoracion(request.getValoracion())
+					.stock(request.getStock())
+					.active(request.getActive())
+					.build();
 
 			return repository.save(product);
 		} else {
