@@ -3,10 +3,15 @@ package com.relatosdepapel.relatosdepapel_buscador_ms.controller;
 import com.relatosdepapel.relatosdepapel_buscador_ms.controller.model.BookQueryResponse;
 import com.relatosdepapel.relatosdepapel_buscador_ms.entity.Book;
 import com.relatosdepapel.relatosdepapel_buscador_ms.controller.model.CreateBookRequest;
+import com.relatosdepapel.relatosdepapel_buscador_ms.dto.CategoriaFacetDTO;
+import com.relatosdepapel.relatosdepapel_buscador_ms.dto.FormatoFacetDTO;
+import com.relatosdepapel.relatosdepapel_buscador_ms.dto.ResponseFacetDTO;
 import com.relatosdepapel.relatosdepapel_buscador_ms.service.BookServiceElastic;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -76,6 +81,26 @@ public class BookController {
         Book value= service.getBook(id);
         return value;   
     }
+    
+    //Facet por categorias
+    @GetMapping("/categorias")
+    public ResponseEntity<List<CategoriaFacetDTO>> obtenerFacetsPorCategoria() throws IOException {
+        return ResponseEntity.ok(service.obtenerCategoriasConConteo());
+    }
+    
+   //Facet por formatos
+    @GetMapping("/formatos")
+    public ResponseEntity<List<FormatoFacetDTO>> obtenerFormatosConConteo() throws IOException {
+        return ResponseEntity.ok(service.obtenerFormatosConConteo());
+    }
+    
+   //Facet agrupador
+    @GetMapping("/facets")
+    public ResponseEntity<ResponseFacetDTO> obtenerFacetsCombinados() throws IOException {
+        return ResponseEntity.ok(service.obtenerFacetsCombinados());
+    }
+
+
     
 //    @GetMapping("/search")
 //    public List<Book> searchBooks(
