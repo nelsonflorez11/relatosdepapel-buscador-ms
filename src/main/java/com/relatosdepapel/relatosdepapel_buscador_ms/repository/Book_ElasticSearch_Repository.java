@@ -6,11 +6,11 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import java.util.List;
 import java.util.Optional;
 
-public interface Book_ElasticSearch_Repository extends ElasticsearchRepository<Book, Long> {
+public interface Book_ElasticSearch_Repository extends ElasticsearchRepository<Book, String> {
 
     //List<Book> findByAuthor(String author);
 
-    Optional<Book> findById(Long id);
+    Optional<Book> findById(String id);
 
     Book save(Book libro);
 

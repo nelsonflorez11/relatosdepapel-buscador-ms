@@ -22,12 +22,12 @@ public class BookServiceImpl implements BookServiceElastic {
 	}
 
 	@Override
-	public Book getBook(Long Id) {
+	public Book getBook(String Id) {
 		return repository.findById(Id).orElse(null);
 	}
 
 	@Override
-	public Boolean removeBook(Long Id) {
+	public Boolean removeBook(String Id) {
 
 		Book product = repository.findById(Id).orElse(null);
 		if (product != null) {

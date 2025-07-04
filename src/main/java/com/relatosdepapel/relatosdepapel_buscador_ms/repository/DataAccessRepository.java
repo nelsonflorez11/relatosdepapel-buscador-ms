@@ -46,7 +46,7 @@ public class DataAccessRepository {
         return Boolean.TRUE;
     }
 
-	public Optional<Book> findById(Long id) {
+	public Optional<Book> findById(String id) {
 		return bookRepository.findById(id);
 	}
 

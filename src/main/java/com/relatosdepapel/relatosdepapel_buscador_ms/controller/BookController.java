@@ -64,7 +64,7 @@ public class BookController {
 //        return updated.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 //    }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBook(@PathVariable String id) {
         if (!service.removeBook(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -72,7 +72,7 @@ public class BookController {
     }
     
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable Long id) {
+        public Book getBookById(@PathVariable String id) {
         Book value= service.getBook(id);
         return value;   
     }
